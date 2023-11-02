@@ -6,8 +6,9 @@ import {
     ShareIccon,
 } from "../components/icons/Svgs";
 import PrincipalLayout from "../components/layouts/PrincipalLayout";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { axiosMusic } from "../utils/configAxios";
+import TrackCard from "../components/shared/TrackCard";
 
 const PlaylistDetail = () => {
     const [isShowFront, setIsShowFront] = useState(true);
@@ -15,6 +16,7 @@ const PlaylistDetail = () => {
 
     const { id } = useParams();
     const formRef = useRef(null);
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -30,6 +32,27 @@ const PlaylistDetail = () => {
             })
             .catch((err) => console.log(err))
     };
+
+    const deleteTrack = (idTrack) => {
+        axiosMusic
+            .delete(`/api/playlists/${playlist.id}/tracks/${idTrack}`)
+            .then(() => {
+                const playlistCopy = structuredClone(playlist)
+                playlistCopy.tracks = playlistCopy.tracks.filter((track) => track.id !== idTrack)
+                setPlaylist(playlistCopy)
+            } )
+            .catch((err) => console.log(err))
+    }
+
+    const deletePlaylist = () => {
+        axiosMusic
+            .delete(`/api/playlists/${playlist.id}`)
+            .then(() => {
+                alert("Playlist eliminada correctamente")
+                navigate("/playlists")
+            })
+            .catch((err) => console.log(err))
+    }
 
     useEffect(() => {
         axiosMusic
@@ -75,18 +98,18 @@ const PlaylistDetail = () => {
                         >
                             <SaveIcon />
                         </button>
-                        <button
+                        <button onClick={deletePlaylist}
                             type="button"
                             className="absolute bottom-4 left-[60px] border-2 rounded-full p-[3px]"
                         >
                             <DeleteIcon />
                         </button>
-                        <button
+                        <Link to={`/playlists/public/${playlist?.id}`}
                             type="button"
                             className="absolute bottom-4 right-5 border-2 rounded-full p-[3px]"
                         >
                             <ShareIccon />
-                        </button>
+                        </Link>
                     </div>
 
                     <div className="absolute top-0  back">
@@ -122,6 +145,12 @@ const PlaylistDetail = () => {
                     {isShowFront ? "Lado B" : "Lado A"}
                 </button>
             </form>
+
+            <section>
+                {
+                    playlist?.tracks.map((track) => <TrackCard key={track.id} track={track} deleteButton={deleteTrack}/>)
+                }
+            </section>
         </PrincipalLayout>
     );
 };

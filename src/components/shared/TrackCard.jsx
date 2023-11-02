@@ -9,6 +9,8 @@ const TrackCard = ({
     showAddButton,
     imageSize = "base",
     showMinusButton,
+    deleteButton,
+    playTrack,
 }) => {
     const dispatch = useDispatch();
 
@@ -17,8 +19,8 @@ const TrackCard = ({
     };
 
     const handleRemoveTrack = () => {
-        dispatch(removeTrack(track.id))
-    }
+        dispatch(removeTrack(track.id));
+    };
 
     const imagesSizes = {
         base: "w-[54px]",
@@ -75,6 +77,16 @@ const TrackCard = ({
                 {showMinusButton && (
                     <button onClick={handleRemoveTrack}>
                         <MinusIcon />
+                    </button>
+                )}
+                {deleteButton && (
+                    <button onClick={() => deleteButton(track.id)}>
+                        <MinusIcon />
+                    </button>
+                )}
+                {playTrack && (
+                    <button onClick={() => playTrack(track.spotifyId)}>
+                        <PlayIcon />
                     </button>
                 )}
             </div>
