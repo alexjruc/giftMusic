@@ -74,7 +74,7 @@ const PopUpPlaylist = ({ isShowPlaylist }) => {
                             <EditIcon />
                         </label>
                     </div>
-                    <div className="bg-white flex p-1 items-center rounded-md w-[198px] absolute top-[50px] left-[20px] gap-1 text-sm">
+                    <div className="bg-white flex p-1 items-center rounded-md w-[198px] absolute top-[50px] left-[20px] text-sm">
                         <textarea
                             rows={4}
                             name="message"
