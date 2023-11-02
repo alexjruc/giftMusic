@@ -12,7 +12,7 @@ const PopUpAuth = ({isShowAuth}) => {
     };
 
     return (
-        <nav className={`fixed top-24 bg-primary-light uppercase grid p-4 gap-1 rounded-md font-semibold border border-secundary ${isShowAuth ? "right-10" : "-right-full"} transition-all`}>
+        <nav className={`fixed z-20 top-24 bg-primary-light uppercase grid p-4 gap-1 rounded-md font-semibold border border-secundary ${isShowAuth ? "right-10" : "-right-full"} transition-all`}>
             <Link
                 to="/playlists"
                 className=" flex gap-2 hover:text-[#3e14b5] items-center group transition-colors"

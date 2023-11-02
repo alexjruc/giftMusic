@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom"
-
 const PublicLayout = ({children}) => {
     return (
         <section className="bg-dark font-urbanist text-white min-h-screen grid grid-rows-[auto,_1fr] bg-[url('/images/bg-mobile.png')] bg-no-repeat bg-right-bottom md:bg-[url('/images/bg-desktop.png')] transition-all">
             <header className="bg-primary-dark flex justify-center items-center p-4 uppercase">
-                <Link to={"/"} className="font font-semibold sm:text-lg">Gift Music</Link>
+                <h1 className="font font-semibold sm:text-lg">Gift Music</h1>
 
             </header>
 

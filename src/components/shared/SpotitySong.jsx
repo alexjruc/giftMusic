@@ -1,6 +1,6 @@
 const SpotitySong = ({idTrack}) => {
     return (
-        <div className="pt-4">
+        <div className="py-4">
             <iframe
             style={{ borderRadius: "12px" }}
             src={`https://open.spotify.com/embed/track/${idTrack}?utm_source=generator&theme=0`}

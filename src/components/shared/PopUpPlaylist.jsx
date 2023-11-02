@@ -35,7 +35,7 @@ const PopUpPlaylist = ({ isShowPlaylist }) => {
     return (
         <form
             onSubmit={handleSubmit}
-            className={`fixed top-24 bg-primary-light uppercase grid p-4 gap-1 rounded-md font-semibold border border-secundary ${
+            className={`fixed z-20 top-24 bg-primary-light uppercase grid p-4 gap-1 rounded-md font-semibold border border-secundary ${
                 isShowPlaylist ? "right-10" : "-right-full"
             } transition-all`}
         >

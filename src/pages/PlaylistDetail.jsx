@@ -106,6 +106,7 @@ const PlaylistDetail = () => {
                         </button>
                         <Link to={`/playlists/public/${playlist?.id}`}
                             type="button"
+                            target="_blank"
                             className="absolute bottom-4 right-5 border-2 rounded-full p-[3px]"
                         >
                             <ShareIccon />

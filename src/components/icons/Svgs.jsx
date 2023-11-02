@@ -206,7 +206,22 @@ const ShareIccon = () => {
         </svg>
     );
 };
-
+const PlusIccon = () => {
+    return (
+        <svg
+            width="21"
+            height="20"
+            viewBox="0 0 14 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M7.93574 0.701986H5.31567V6.16865H0.0755477V8.90199H5.31567V14.3687H7.93574V8.90199H13.1759V6.16865H7.93574V0.701986Z"
+                fill="white"
+            />
+        </svg>
+    );
+};
 export {
     PlaylistIcon,
     SearchIcon,
@@ -219,4 +234,5 @@ export {
     SaveIcon,
     DeleteIcon,
     ShareIccon,
+    PlusIccon,
 };

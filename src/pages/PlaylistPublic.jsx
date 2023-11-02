@@ -1,5 +1,5 @@
-import { Link, useParams } from "react-router-dom";
-import { ShareIccon } from "../components/icons/Svgs";
+import { useParams } from "react-router-dom";
+import { PlusIccon, ShareIccon } from "../components/icons/Svgs";
 import PublicLayout from "../components/layouts/PublicLayout";
 import { useEffect, useState } from "react";
 import { axiosMusic } from "../utils/configAxios";
@@ -9,11 +9,18 @@ import SpotitySong from "../components/shared/SpotitySong";
 const PlaylistPublic = () => {
     const [isShowFront, setIsShowFront] = useState(true);
     const [playlist, setPlaylist] = useState(null);
-    const [currentSong, setCurrentSong] = useState(null)
+    const [currentSong, setCurrentSong] = useState(null);
 
     const { id } = useParams();
 
-    
+    const playTrack = (idTrack) => {
+        setCurrentSong(idTrack)
+    }
+
+    const handleCopyUrl = () => {
+        const currentUrl = window.location.href
+        navigator.clipboard.writeText(currentUrl).then(() => alert("copiado correctamente"))
+    }
 
     useEffect(() => {
         axiosMusic
@@ -33,42 +40,32 @@ const PlaylistPublic = () => {
                     <div className="front">
                         <img src="/images/cassette.png" alt="cassette" />
                         <div className="bg-white flex p-1 items-center rounded-md w-[198px] absolute top-[15px] left-[20px] gap-1 text-sm">
-                            <input
-                                className="bg-transparent flex-1 outline-none text-black "
-                                placeholder="Título"
-                                id="title"
-                                type="text"
-                                size={15}
-                            />
+                            <h3 className="bg-transparent flex-1 outline-none text-black ">
+                                {playlist?.title}
+                            </h3>
                         </div>
 
-                        <Link
-                            to={`/playlists/public/${playlist?.id}`}
+                        <button
+                        onClick={handleCopyUrl}
                             type="button"
-                            className="absolute bottom-4 right-5 border-2 rounded-full p-[3px]"
+                            className="absolute bottom-4 right-14 border-2 rounded-full p-[3px]"
                         >
                             <ShareIccon />
-                        </Link>
+                        </button>
+                        <button className="absolute bottom-4 right-5 border-2 rounded-full p-[3px]">
+                            <PlusIccon/>
+                        </button>
                     </div>
 
                     <div className="absolute top-0  back">
                         <img src="/images/cassette.png" alt="cassette" />
                         <div className="bg-white flex p-1 items-center rounded-md w-[198px] absolute top-[15px] left-[20px] gap-1 text-sm">
-                            <input
-                                className="bg-transparent flex-1 outline-none text-black "
-                                placeholder="Destinatario"
-                                id="to"
-                                type="text"
-                                size={15}
-                            />
+                            <span className="bg-transparent flex-1 outline-none text-black ">
+                                {playlist?.to}
+                            </span>
                         </div>
-                        <div className="bg-white flex p-1 items-center rounded-md w-[198px] absolute top-[50px] left-[20px] gap-1 text-sm">
-                            <textarea
-                                rows={4}
-                                name="message"
-                                className="resize-none outline-none text-black"
-                                placeholder="Mensaje"
-                            />
+                        <div className="bg-white p-1  rounded-md w-[198px] absolute top-[50px] left-[20px] gap-1 text-sm text-black h-[100px] overflow-y-auto">
+                            <p>{playlist?.message}</p>
                         </div>
                     </div>
                 </div>
@@ -82,13 +79,11 @@ const PlaylistPublic = () => {
                 </button>
             </article>
 
-            {
-                currentSong && <SpotitySong idTrack={currentSong} />
-            }
+            {currentSong && <SpotitySong idTrack={currentSong} />}
 
             <section>
                 {playlist?.tracks.map((track) => (
-                    <TrackCard key={track.id} track={track} />
+                    <TrackCard key={track.id} track={track} playTrack={playTrack} />
                 ))}
             </section>
         </PublicLayout>
